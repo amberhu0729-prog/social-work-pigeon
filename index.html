@@ -196,13 +196,6 @@ body {
 
   <div class="avatar">
     <img id="bgLayer" src="assets/background/bg01.PNG">
-    <img id="bgLayer" src="assets/background/bg02.PNG">
-    <img id="bgLayer" src="assets/background/bg03.PNG">
-    <img id="bgLayer" src="assets/background/bg04.PNG">
-    <img id="bgLayer" src="assets/background/bg05.PNG">
-    <img id="bgLayer" src="assets/background/bg06.PNG">
-    <img id="bgLayer" src="assets/background/bg07.PNG">
-    <img id="bgLayer" src="assets/background/bg08.PNG">
     <img id="bodyLayer" src="assets/1XqXK0G.png">
     <img id="faceLayer" src="">
     <img id="eyesLayer" src="">
@@ -360,12 +353,13 @@ function downloadAvatar(){
   const ctx = canvas.getContext("2d");
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   
-  // 依照圖層順序繪製 (背景最下)
+  // 這裡的順序決定了誰在上面
   const layerIds = ["bgLayer", "bodyLayer", "faceLayer", "eyesLayer", "mouthLayer", "hairLayer", "accessoryLayer", "floatLayer"];
   
   layerIds.forEach(id => {
     const img = document.getElementById(id);
-    if(img && img.src && img.complete && img.naturalWidth !== 0) {
+    // 檢查圖片是否有 src 且不是空的
+    if(img && img.getAttribute('src') !== "" && img.naturalWidth !== 0) {
       ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
     }
   });
