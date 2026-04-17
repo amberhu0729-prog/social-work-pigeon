@@ -25,13 +25,31 @@ body {
   align-items: center;
   z-index: 999;
 }
-  /* 副標題樣式 */
+  /* 定義浮現動畫 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px); /* 從下方 20px 的位置開始 */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);    /* 回到原位 */
+  }
+}
+
 .subtitle {
-  margin-top: 15px;      /* 與按鈕保持適當距離 */
-  font-size: 18px;       /* 稍微比按鈕小一點 */
-  color: #c2410c;        /* 深橘色，視覺較穩定 */
-  font-weight: 500;      /* 中等粗度 */
-  letter-spacing: 1px;   /* 增加字距提升質感 */
+  margin-top: 15px;
+  font-size: 18px;
+  color: #c2410c;
+  font-weight: 500;
+  
+  /* 應用動畫 */
+  animation: fadeInUp 1.2s ease-out forwards; 
+  /* 1.2s 是持續時間，forwards 讓動畫結束後停留在顯示狀態 */
+  
+  /* 延遲播放（選用）：讓它比標題晚一點點出現更有層次感 */
+  animation-delay: 0.5s; 
+  opacity: 0; /* 配合延遲，初始先隱藏 */
 }
 
 /* TRANSITION */
