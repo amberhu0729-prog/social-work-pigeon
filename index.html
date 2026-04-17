@@ -25,6 +25,14 @@ body {
   align-items: center;
   z-index: 999;
 }
+  /* 副標題樣式 */
+.subtitle {
+  margin-top: 15px;      /* 與按鈕保持適當距離 */
+  font-size: 18px;       /* 稍微比按鈕小一點 */
+  color: #c2410c;        /* 深橘色，視覺較穩定 */
+  font-weight: 500;      /* 中等粗度 */
+  letter-spacing: 1px;   /* 增加字距提升質感 */
+}
 
 /* TRANSITION */
 #transition {
@@ -185,6 +193,8 @@ body {
 <div id="startScreen" style="display: flex;">
   <h1>開始捏鴿</h1>
   <button class="big-btn" onclick="startGame()">START</button>
+  
+  <p class="subtitle">製作專屬於你的社工小夥伴</p>
 </div>
 
 <div id="transition">
