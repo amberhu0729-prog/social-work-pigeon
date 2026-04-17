@@ -225,7 +225,7 @@ body {
 
   <div class="avatar">
     <img id="bgLayer" src="assets/background/bg01.PNG">
-    <img id="bodyLayer" src="assets/1XqXK0G.png">
+    <img id="bodyLayer" src="assets/body/b01.png">
     <img id="faceLayer" src="">
     <img id="eyesLayer" src="">
     <img id="mouthLayer" src="">
@@ -248,7 +248,9 @@ body {
   <div id="body" class="tab-content active">
     <div class="options">
       <div class="none" onclick="clearLayer('bodyLayer')">None</div>
-      <img src="assets/1XqXK0G.png" onclick="setLayer('bodyLayer',this.src)">
+      <img src="assets/body/01.png" onclick="setLayer('bodyLayer',this.src)">
+      <img src="assets/body/02.png" onclick="setLayer('bodyLayer',this.src)">
+      <img src="assets/body/03.png" onclick="setLayer('bodyLayer',this.src)">
     </div>
   </div>
 
@@ -358,7 +360,7 @@ function clearLayer(id){ document.getElementById(id).src=""; }
 function randomAvatar(){
   const pick = arr => arr[Math.floor(Math.random() * arr.length)];
   const pool = {    
-    bodyLayer:["assets/1XqXK0G.png",""],    
+    bodyLayer:["assets/body/b01.png","assets/body/b02.png","assets/body/b03.png"],    
     hairLayer:["assets/1XqXK0G.png",""],    
     eyesLayer:["assets/1XqXK0G.png"],    
     faceLayer:["assets/1XqXK0G.png"],    
