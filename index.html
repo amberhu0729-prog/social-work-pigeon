@@ -377,26 +377,36 @@ function randomAvatar(){
   });
 }
 
-function downloadAvatar(){  
-  const canvas = document.getElementById("resultCanvas");
-  const ctx = canvas.getContext("2d");
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  
-  // 這裡的順序決定了誰在上面
-  const layerIds = ["bgLayer", "bodyLayer", "faceLayer", "eyesLayer", "mouthLayer", "hairLayer", "accessoryLayer", "floatLayer"];
-  
-  layerIds.forEach(id => {
-    const img = document.getElementById(id);
-    // 檢查圖片是否有 src 且不是空的
-    if(img && img.getAttribute('src') !== "" && img.naturalWidth !== 0) {
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-    }
-  });
+function downloadAvatar() {
+  // 1. 顯示 Loading 動畫
+  const transition = document.getElementById("transition");
+  transition.classList.add("active");
 
-  document.getElementById("mainApp").style.display="none";  
-  document.getElementById("resultScreen").style.display="block";
+  // 2. 延遲 800 毫秒後再執行切換（模仿處理圖片的時間）
+  setTimeout(() => {
+    const canvas = document.getElementById("resultCanvas");
+    const ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // 依照圖層順序繪製
+    const layerIds = ["bgLayer", "bodyLayer", "faceLayer", "eyesLayer", "mouthLayer", "hairLayer", "accessoryLayer", "floatLayer"];
+
+    layerIds.forEach(id => {
+      const img = document.getElementById(id);
+      if (img && img.getAttribute('src') !== "" && img.naturalWidth !== 0) {
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      }
+    });
+
+    // 3. 切換畫面
+    document.getElementById("mainApp").style.display = "none";
+    document.getElementById("resultScreen").style.display = "block";
+
+    // 4. 關閉 Loading 動畫
+    transition.classList.remove("active");
+  }, 800); // 這裡的 800 毫秒要跟動畫消失的時間配合
 }
-
+  
 function downloadFinal(){
   const canvas = document.getElementById("resultCanvas");
   const image = canvas.toDataURL("image/png");
