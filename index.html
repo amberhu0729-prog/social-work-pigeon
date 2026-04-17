@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<!-- saved from url=(0139)file:///C:/Amber/%E6%8D%8F%E8%87%89%E7%B3%BB%E7%B5%B1%EF%BC%88%E6%9C%80%E7%B5%82%E7%A9%A9%E5%AE%9A%E5%AE%8C%E6%95%B4%E7%89%88%EF%BC%89.html -->
-<html lang="zh"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
 <title>我的社工鴿</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 body {
   margin: 0;
-  font-family: Arial;
+  font-family: Arial, sans-serif;
   background: linear-gradient(135deg, #fff7ed, #ffedd5);
   text-align: center;
 }
 
-/* START */
+/* START SCREEN */
 #startScreen {
   position: fixed;
   inset: 0;
@@ -52,7 +52,6 @@ body {
   position: relative;
 }
 
-/* 返回鍵 */
 .top-back-btn {
   position: absolute;
   top: 16px;
@@ -65,7 +64,7 @@ body {
   cursor: pointer;
 }
 
-/* AVATAR */
+/* AVATAR DISPLAY */
 .avatar {
   position: relative;
   width: 280px;
@@ -74,6 +73,7 @@ body {
   background: white;
   border-radius: 24px;
   overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
 }
 .avatar img {
   position: absolute;
@@ -83,12 +83,13 @@ body {
   object-fit: contain;
 }
 
-/* TAB */
+/* TAB BAR */
 .tab-bar {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 8px;
+  margin-bottom: 15px;
 }
 .tab-btn {
   padding: 8px 14px;
@@ -121,7 +122,10 @@ body {
   border-radius: 14px;
   border: 2px solid #fff7ed;
   cursor: pointer;
+  transition: transform 0.2s;
 }
+.options img:hover { transform: scale(1.05); }
+
 .none {
   width: 90px;
   height: 90px;
@@ -134,7 +138,7 @@ body {
   color: #999;
 }
 
-/* BUTTON */
+/* BUTTONS */
 .big-btn {
   width: 85%;
   margin: 14px auto;
@@ -145,6 +149,7 @@ body {
   color: white;
   border: none;
   cursor: pointer;
+  font-weight: bold;
 }
 .small-btn {
   width: 65%;
@@ -166,135 +171,123 @@ body {
   z-index: 2000;
   padding-top: 40px;
 }
+#resultCanvas {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
 </style>
 </head>
 
 <body>
 
-<!-- START -->
 <div id="startScreen" style="display: flex;">
   <h1>開始捏鴿</h1>
   <button class="big-btn" onclick="startGame()">START</button>
 </div>
 
-<!-- TRANSITION -->
-<div id="transition" class="">
+<div id="transition">
   <div style="color:white;font-size:24px;">Loading...</div>
 </div>
 
-<!-- APP -->
 <div class="app" id="mainApp" style="display: none;">
+  <button class="top-back-btn" onclick="goHome()">↩ 返回</button>
+  <h2>咕咕咕?</h2>
 
-<button class="top-back-btn" onclick="goHome()">↩ 返回</button>
+  <div class="avatar">
+    <img id="bgLayer" src="">
+    <img id="bodyLayer" src="assets/1XqXK0G.png">
+    <img id="faceLayer" src="">
+    <img id="eyesLayer" src="">
+    <img id="mouthLayer" src="">
+    <img id="hairLayer" src="">
+    <img id="accessoryLayer" src="">
+    <img id="floatLayer" src="">
+  </div>
 
-<h2>咕咕咕?</h2>
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="openTab('body',event)">身體</button>
+    <button class="tab-btn" onclick="openTab('hair',event)">髮型</button>
+    <button class="tab-btn" onclick="openTab('eyes',event)">眼睛</button>
+    <button class="tab-btn" onclick="openTab('face',event)">臉部</button>
+    <button class="tab-btn" onclick="openTab('mouth',event)">嘴巴</button>
+    <button class="tab-btn" onclick="openTab('accessory',event)">配件</button>
+    <button class="tab-btn" onclick="openTab('float',event)">泳圈</button>
+    <button class="tab-btn" onclick="openTab('bg',event)">背景</button>
+  </div>
 
-<div class="avatar">
-  <img id="bodyLayer" src="file:///C:\Amber\assets\body">
-  <img id="bgLayer" src="file:///C:\Amber\assets\background">
-  <img id="faceLayer" src="file:///C:\Amber\assets\face">
-  <img id="eyesLayer" src="file:///C:\Amber\assets\eyes">
-  <img id="mouthLayer" src="file:///C:\Amber\assets\mouth">
-  <img id="hairLayer" src="file:///C:\Amber\assets\hair">
-  <img id="accessoryLayer" src="file:///C:\Amber\assets\accessory">
-  <img id="floatLayer" src="file:///C:\Amber\assets\float">
-</div>
+  <div id="body" class="tab-content active">
+    <div class="options">
+      <div class="none" onclick="clearLayer('bodyLayer')">None</div>
+      <img src="assets/1XqXK0G.png" onclick="setLayer('bodyLayer',this.src)">
+    </div>
+  </div>
 
-<div class="tab-bar">
-  <button class="tab-btn" onclick="openTab(&#39;body&#39;,event)">身體</button>
-  <button class="tab-btn" onclick="openTab(&#39;hair&#39;,event)">髮型</button>
-  <button class="tab-btn" onclick="openTab(&#39;eyes&#39;,event)">眼睛</button>
-  <button class="tab-btn" onclick="openTab(&#39;face&#39;,event)">臉部</button>
-  <button class="tab-btn" onclick="openTab(&#39;mouth&#39;,event)">嘴巴</button>
-  <button class="tab-btn" onclick="openTab(&#39;accessory&#39;,event)">配件</button>
-  <button class="tab-btn active" onclick="openTab(&#39;float&#39;,event)">泳圈</button>
-  <button class="tab-btn" onclick="openTab(&#39;bg&#39;,event)">背景</button>
-</div>
+  <div id="hair" class="tab-content">
+    <div class="options">
+      <div class="none" onclick="clearLayer('hairLayer')">None</div>
+      <img src="assets/1XqXK0G.png" onclick="setLayer('hairLayer',this.src)">
+    </div>
+  </div>
 
-<!-- 每個分類（完全保留） -->
-<div id="body" class="tab-content">
-<div class="options">
-<div class="none" onclick="clearLayer(&#39;bodyLayer&#39;)">None</div>
-<img src="assets/1XqXK0G.png" onclick="setLayer(&#39;bodyLayer&#39;,this.src)">
-<img src="assets/1XqXK0G.png" onclick="setLayer(&#39;bodyLayer&#39;,this.src)">
-</div>
-</div>
+  <div id="eyes" class="tab-content">
+    <div class="options">
+      <div class="none" onclick="clearLayer('eyesLayer')">None</div>
+      <img src="assets/1XqXK0G.png" onclick="setLayer('eyesLayer',this.src)">
+    </div>
+  </div>
 
-<div id="hair" class="tab-content">
-<div class="options">
-<div class="none" onclick="clearLayer(&#39;hairLayer&#39;)">None</div>
-<img src="assets/1XqXK0G.png" onclick="setLayer(&#39;hairLayer&#39;,this.src)">
-<img src="assets/1XqXK0G.png" onclick="setLayer(&#39;hairLayer&#39;,this.src)">
-</div>
-</div>
+  <div id="face" class="tab-content">
+    <div class="options">
+      <div class="none" onclick="clearLayer('faceLayer')">None</div>
+      <img src="assets/1XqXK0G.png" onclick="setLayer('faceLayer',this.src)">
+    </div>
+  </div>
 
-<div id="eyes" class="tab-content">
-<div class="options">
-<div class="none" onclick="clearLayer(&#39;eyesLayer&#39;)">None</div>
-<img src="assets/1XqXK0G.png" onclick="setLayer(&#39;eyesLayer&#39;,this.src)">
-<img src="assets/1XqXK0G.png" onclick="setLayer(&#39;eyesLayer&#39;,this.src)">
-</div>
-</div>
+  <div id="mouth" class="tab-content">
+    <div class="options">
+      <div class="none" onclick="clearLayer('mouthLayer')">None</div>
+      <img src="assets/1XqXK0G.png" onclick="setLayer('mouthLayer',this.src)">
+    </div>
+  </div>
 
-<div id="face" class="tab-content">
-<div class="options">
-<div class="none" onclick="clearLayer(&#39;faceLayer&#39;)">None</div>
-<img src="assets/1XqXK0G.png" onclick="setLayer(&#39;faceLayer&#39;,this.src)>
-<img src="assets/1XqXK0G.png" onclick="setLayer(&#39;faceLayer&#39;,this.src)>
-</div>
-</div>
+  <div id="accessory" class="tab-content">
+    <div class="options">
+      <div class="none" onclick="clearLayer('accessoryLayer')">None</div>
+      <img src="assets/1XqXK0G.png" onclick="setLayer('accessoryLayer',this.src)">
+    </div>
+  </div>
 
-<div id="mouth" class="tab-content">
-<div class="options">
-<div class="none" onclick="clearLayer(&#39;mouthLayer&#39;)">None</div>
-<img src="assets/1XqXK0G.png" onclick="setLayer(&#39;mouthLayer&#39;,this.src)">
-</div>
-</div>
+  <div id="float" class="tab-content">
+    <div class="options">
+      <div class="none" onclick="clearLayer('floatLayer')">None</div>
+      <img src="assets/1XqXK0G.png" onclick="setLayer('floatLayer',this.src)">
+    </div>
+  </div>
 
-<div id="accessory" class="tab-content">
-<div class="options">
-<div class="none" onclick="clearLayer(&#39;accessoryLayer&#39;)">None</div>
-<img src="assets/1XqXK0G.png" onclick="setLayer(&#39;accessoryLayer&#39;,this.src)">
-</div>
-</div>
+  <div id="bg" class="tab-content">
+    <div class="options">
+      <div class="none" onclick="clearLayer('bgLayer')">None</div>
+      <img src="assets/background/bg01.PNG" onclick="setLayer('bgLayer',this.src)">
+      <img src="assets/background/bg02.PNG" onclick="setLayer('bgLayer',this.src)">
+      <img src="assets/background/bg03.PNG" onclick="setLayer('bgLayer',this.src)">
+      <img src="assets/background/bg04.PNG" onclick="setLayer('bgLayer',this.src)">
+      <img src="assets/background/bg05.PNG" onclick="setLayer('bgLayer',this.src)">
+    </div>
+  </div>
 
-<div id="float" class="tab-content active">
-<div class="options">
-<div class="none" onclick="clearLayer(&#39;floatLayer&#39;)">None</div>
-<img src="assets/1XqXK0G.png" onclick="setLayer(&#39;floatLayer&#39;,this.src)">
-</div>
-</div>
-
-<div id="bg" class="tab-content">
-<div class="options">
-<div class="none" onclick="clearLayer(&#39;bgLayer&#39;)">None</div>
-<img src="assets/background/bg01.PNG" onclick="setLayer(&#39;bgLayer&#39;,this.src)">
-<img src="assets/background/bg02.PNG" onclick="setLayer(&#39;bgLayer&#39;,this.src)">
-<img src="assets/background/bg03.PNG" onclick="setLayer(&#39;bgLayer&#39;,this.src)">
-<img src="assets/background/bg04.PNG" onclick="setLayer(&#39;bgLayer&#39;,this.src)">
-<img src="assets/background/bg05.PNG" onclick="setLayer(&#39;bgLayer&#39;,this.src)">
-<img src="assets/background/bg06.PNG" onclick="setLayer(&#39;bgLayer&#39;,this.src)">
-<img src="assets/background/bg07.PNG" onclick="setLayer(&#39;bgLayer&#39;,this.src)">
-<img src="assets/background/bg08.PNG" onclick="setLayer(&#39;bgLayer&#39;,this.src)">
-</div>
+  <button class="small-btn" onclick="randomAvatar()">🎲 隨機</button>
+  <button class="big-btn" onclick="downloadAvatar()">生成成功</button>
 </div>
 
-<button class="small-btn" onclick="randomAvatar()">🎲 隨機</button>
-<button class="big-btn" onclick="downloadAvatar()">生成</button>
-
-</div>
-
-<!-- RESULT -->
-<div id="resultScreen" style="display: none;">
-<h1>咕咕成功</h1>
-<canvas id="resultCanvas" width="280" height="280"></canvas>
-
-<button class="big-btn" onclick="downloadFinal()">⬇ 下載</button>
-<button class="small-btn" onclick="back()">↩ 返回</button>
+<div id="resultScreen">
+  <h1>咕咕成功</h1>
+  <canvas id="resultCanvas" width="280" height="280"></canvas>
+  <button class="big-btn" onclick="downloadFinal()">⬇ 下載圖片</button>
+  <button class="small-btn" onclick="back()">↩ 返回修改</button>
 </div>
 
 <script>
-
 function startGame(){  
   document.getElementById("transition").classList.add("active");  
   setTimeout(()=>{    
@@ -322,10 +315,8 @@ function back(){
   document.getElementById("mainApp").style.display="block";
 }
 
-// 修改：確保設定 src 時處理跨域問題
 function setLayer(id, src) {
   const el = document.getElementById(id);
-  // 關鍵：這行能解決 GitHub 上的 CORS 下載限制
   el.crossOrigin = "anonymous"; 
   el.src = src;
 }
@@ -335,14 +326,14 @@ function clearLayer(id){ document.getElementById(id).src=""; }
 function randomAvatar(){
   const pick = arr => arr[Math.floor(Math.random() * arr.length)];
   const pool = {    
-    bodyLayer:["assets/1XqXK0G.png","assets/1XqXK0G.png",""],    
-    hairLayer:["assets/1XqXK0G.png","assets/1XqXK0G.png",""],    
-    eyesLayer:["assets/1XqXK0G.png","assets/1XqXK0G.png"],    
-    faceLayer:["assets/1XqXK0G.png","assets/1XqXK0G.png"],    
+    bodyLayer:["assets/1XqXK0G.png",""],    
+    hairLayer:["assets/1XqXK0G.png",""],    
+    eyesLayer:["assets/1XqXK0G.png"],    
+    faceLayer:["assets/1XqXK0G.png"],    
     mouthLayer:["assets/1XqXK0G.png",""],    
     accessoryLayer:["assets/1XqXK0G.png",""],    
     floatLayer:["assets/1XqXK0G.png",""],    
-    bgLayer:["assets/background/bg01.PNG","assets/background/bg02.PNG","assets/background/bg03.PNG","assets/background/bg04.PNG","assets/background/bg05.PNG","assets/background/bg06.PNG","assets/background/bg07.PNG","assets/background/bg08.PNG"]  
+    bgLayer:["assets/background/bg01.PNG","assets/background/bg02.PNG","assets/background/bg03.PNG"]  
   };
 
   Object.keys(pool).forEach(id=>{    
@@ -354,20 +345,16 @@ function randomAvatar(){
   });
 }
 
-// 修正：將所有圖片層繪製到 Canvas 上
 function downloadAvatar(){  
   const canvas = document.getElementById("resultCanvas");
   const ctx = canvas.getContext("2d");
-  
-  // 清空畫布
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   
-  // 依照正確的疊放順序繪製 (背景最下)
+  // 依照圖層順序繪製 (背景最下)
   const layerIds = ["bgLayer", "bodyLayer", "faceLayer", "eyesLayer", "mouthLayer", "hairLayer", "accessoryLayer", "floatLayer"];
   
   layerIds.forEach(id => {
     const img = document.getElementById(id);
-    // 只有當圖片有來源且已載入時才繪製
     if(img && img.src && img.complete && img.naturalWidth !== 0) {
       ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
     }
@@ -377,20 +364,15 @@ function downloadAvatar(){
   document.getElementById("resultScreen").style.display="block";
 }
 
-// 修正：實作下載功能
 function downloadFinal(){
   const canvas = document.getElementById("resultCanvas");
-  // 轉為 PNG DataURL
   const image = canvas.toDataURL("image/png");
-  
-  // 創建虛擬下載連結
   const link = document.createElement("a");
   link.href = image;
-  link.download = "my_avatar_" + Date.now() + ".png";
-  document.body.appendChild(link);
+  link.download = "pigeon_" + Date.now() + ".png";
   link.click();
-  document.body.removeChild(link);
-}</script>
+}
+</script>
 
-
-</body></html>
+</body>
+</html>
