@@ -229,7 +229,7 @@ body {
     <img id="faceLayer" src="">
     <img id="eyesLayer" src="">
     <img id="mouthLayer" src="">
-    <img id="hairLayer" src="">
+    <img id="hairLayer" src="assets/hair/h01.PNG">
     <img id="accessoryLayer" src="">
     <img id="floatLayer" src="">
   </div>
@@ -257,7 +257,10 @@ body {
   <div id="hair" class="tab-content">
     <div class="options">
       <div class="none" onclick="clearLayer('hairLayer')">None</div>
-      <img src="assets/1XqXK0G.png" onclick="setLayer('hairLayer',this.src)">
+      <img src="assets/hair/h01.PNG" onclick="setLayer('hairLayer',this.src)">
+      <img src="assets/hair/h02.PNG" onclick="setLayer('hairLayer',this.src)">
+      <img src="assets/hair/h03.PNG" onclick="setLayer('hairLayer',this.src)">
+      <img src="assets/hair/h04.PNG" onclick="setLayer('hairLayer',this.src)">
     </div>
   </div>
 
@@ -361,7 +364,7 @@ function randomAvatar(){
   const pick = arr => arr[Math.floor(Math.random() * arr.length)];
   const pool = {    
     bodyLayer:["assets/body/b01.PNG","assets/body/b02.PNG","assets/body/b03.PNG"],    
-    hairLayer:["assets/1XqXK0G.png",""],    
+    hairLayer:["assets/hair/h01.PNG","assets/hair/h02.PNG","assets/hair/h03.PNG","assets/hair/h04.PNG"],    
     eyesLayer:["assets/1XqXK0G.png"],    
     faceLayer:["assets/1XqXK0G.png"],    
     mouthLayer:["assets/1XqXK0G.png",""],    
