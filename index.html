@@ -202,6 +202,9 @@ body {
   background: white;
   border-radius: 20px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  /* 關鍵：強制讓 1120px 的畫布在顯示時縮小成 280px，這樣才會清晰 */
+  width: 280px; 
+  height: 280px;
 }
 </style>
 </head>
@@ -333,12 +336,12 @@ body {
   </div>
 
   <button class="small-btn" onclick="randomAvatar()">🎲 隨機</button>
-  <button class="big-btn" onclick="downloadAvatar()">生成成功</button>
+  <button class="big-btn" onclick="downloadAvatar()">生成</button>
 </div>
 
 <div id="resultScreen">
   <h1>咕咕成功</h1>
-  <canvas id="resultCanvas" width="280" height="280"></canvas>
+  <canvas id="resultCanvas" width="1120" height="1120"></canvas>
   <button class="big-btn" onclick="downloadFinal()">⬇ 下載圖片</button>
   <button class="small-btn" onclick="back()">↩ 返回修改</button>
 </div>
@@ -415,12 +418,14 @@ function downloadAvatar() {
     // 依照圖層順序繪製
     const layerIds = ["bgLayer", "bodyLayer", "faceLayer", "eyesLayer", "mouthLayer", "hairLayer", "accessoryLayer", "floatLayer"];
 
-    layerIds.forEach(id => {
-      const img = document.getElementById(id);
-      if (img && img.getAttribute('src') !== "" && img.naturalWidth !== 0) {
-        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-      }
-    });
+    // 在 downloadAvatar 函數內
+layerIds.forEach(id => {
+  const img = document.getElementById(id);
+  if (img && img.getAttribute('src') !== "" && img.naturalWidth !== 0) {
+    // 這裡使用 canvas.width (1120)，它會自動抓取你 HTML 設定的寬度
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+  }
+});
 
     // 3. 切換畫面
     document.getElementById("mainApp").style.display = "none";
